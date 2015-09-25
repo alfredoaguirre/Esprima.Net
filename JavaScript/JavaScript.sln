@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScript", "JavaScript\JavaScript.csproj", "{A313C235-4320-4CBA-8BE7-37C37F7C01B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScript.Test", "JavaScript.Test\JavaScript.Test.csproj", "{E61C2572-E146-40F6-8B96-D51F3AE1E95E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A313C235-4320-4CBA-8BE7-37C37F7C01B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A313C235-4320-4CBA-8BE7-37C37F7C01B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A313C235-4320-4CBA-8BE7-37C37F7C01B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A313C235-4320-4CBA-8BE7-37C37F7C01B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E61C2572-E146-40F6-8B96-D51F3AE1E95E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E61C2572-E146-40F6-8B96-D51F3AE1E95E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E61C2572-E146-40F6-8B96-D51F3AE1E95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E61C2572-E146-40F6-8B96-D51F3AE1E95E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
