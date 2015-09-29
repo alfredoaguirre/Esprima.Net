@@ -25,8 +25,8 @@ namespace Esprima.NET
         public object consequent { get; set; }
         public object test { get; set; }
         public bool each { get; set; }
-        public object id { get; set; }
-        public object param { get; set; }
+        public Node id { get; set; }
+        public Node param { get; set; }
         public Node superClass { get; set; }
         public object @object { get; set; }
         public List<Node> body { get; set; }
@@ -311,7 +311,7 @@ namespace Esprima.NET
         }
 
 
-        public Node finishCatchClause(object param, List<Node> body)
+        public Node finishCatchClause(Node param, List<Node> body)
         {
             this.type = Syntax.CatchClause;
             this.param = param;
@@ -328,7 +328,7 @@ namespace Esprima.NET
             return this;
         }
 
-        public Node finishClassDeclaration(object id, Node superClass, List<Node> body)
+        public Node finishClassDeclaration(Node id, Node superClass, List<Node> body)
         {
             this.type = Syntax.ClassDeclaration;
             this.id = id;
@@ -338,7 +338,7 @@ namespace Esprima.NET
             return this;
         }
 
-        public Node finishClassExpression(object id, Node superClass, List<Node> body)
+        public Node finishClassExpression(Node id, Node superClass, List<Node> body)
         {
             this.type = Syntax.ClassExpression;
             this.id = id;
@@ -448,7 +448,7 @@ namespace Esprima.NET
             return this;
         }
 
-        public Node finishFunctionExpression(object id, List<Node> @params, object defaults, List<Node> body,
+        public Node finishFunctionExpression(Node id, List<Node> @params, object defaults, List<Node> body,
             bool generator)
         {
             this.type = Syntax.FunctionExpression;
@@ -736,7 +736,7 @@ namespace Esprima.NET
             return this;
         }
 
-        public Node finishVariableDeclarator(object id, object init)
+        public Node finishVariableDeclarator(Node id, object init)
         {
             this.type = Syntax.VariableDeclarator;
             this.id = id;
