@@ -32,14 +32,13 @@ namespace JavaScriptToNet.Test
         [TestMethod]
         public void TestMethod2()
         {
-              StreamReader file = new StreamReader(@"js\example.js");
-              Class1.emit("example", file.ReadToEnd());  
+              Class1.emit(@"js");  
         }
-           [TestMethod]
-        public void TestMethodArgs()
-        {
-            StreamReader file = new StreamReader(@"js\exampleArgs.js");
-            Class1.emit("TestMethodArgs", file.ReadToEnd());
-        }
+        //   [TestMethod]
+        //public void TestMethodArgs()
+        //{
+        //    StreamReader file = new StreamReader(@"js\exampleArgs.js");
+        //    Class1.emit("TestMethodArgs", file.ReadToEnd());
+        //}
     }
 }

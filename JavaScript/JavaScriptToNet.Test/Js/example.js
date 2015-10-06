@@ -12,5 +12,9 @@ function f1(data) {
     alert(data); // undefined
     g();
 }
+function f12(data, data2) {
+    alert(data); // undefined
+    g();
+}
 
 f();

@@ -38,10 +38,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comment.cs" />
+    <Compile Include="Error.cs" />
     <Compile Include="Esprima.cs" />
+    <Compile Include="Extra.cs" />
     <Compile Include="ListExtentions.cs" />
     <Compile Include="Loc.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="Options.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="Regex.cs" />
     <Compile Include="State.cs" />

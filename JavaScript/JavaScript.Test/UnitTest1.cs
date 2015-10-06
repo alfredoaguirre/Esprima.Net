@@ -19,8 +19,20 @@ namespace JavaScript.Test
             var node = esprima.parse(code, new Options());
         }
         [TestMethod]
+        public void TestMethod1ARgo()
+        {
+            var esprima = new Esprima.NET.Esprima();
+            var code = file.ReadToEnd();
+            var tokenize = esprima.tokenize(code, new Options());
+
+
+            var node = esprima.parse(code, new Options());
+        }
+
+        [TestMethod]
         public void TestMethod1AMD()
         {
+            StreamReader file = new StreamReader(@"js\AMDSimple.js");
             var esprima = new Esprima.NET.Esprima();
             var code = file.ReadToEnd();
             var tokenize = esprima.tokenize(code, new Options());

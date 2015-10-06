@@ -60,6 +60,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="js\AMDSimple.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="js\example.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

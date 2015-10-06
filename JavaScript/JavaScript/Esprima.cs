@@ -20,7 +20,7 @@ namespace Esprima.NET
         private bool hasLineTerminator;
         public static int lastIndex = 0;
         public static int lastLineNumber;
-        public  static int lastLineStart;
+        public static int lastLineStart;
         public static int startIndex;
         private int startLineNumber;
         private int startLineStart;
@@ -49,7 +49,7 @@ namespace Esprima.NET
         };
 
         // A function following one of those tokens is an expression.
-        private List<string> FnExprTokens = new List<string>
+        private readonly List<string> FnExprTokens = new List<string>
         {
             "(",
             "{",
@@ -106,6 +106,8 @@ namespace Esprima.NET
             "!=",
             "!=="
         };
+
+        private int _lineStart;
 
         public static class PlaceHolders
         {
@@ -214,8 +216,8 @@ namespace Esprima.NET
 
         public bool isWhiteSpace(char ch)
         {
-            return char.IsWhiteSpace(ch);
-            //return (ch == 0x20) || (ch == 0x09) || (ch == 0x0B) || (ch == 0x0C) || (ch == 0xA0) ||
+            
+            return (ch == 0x20) || (ch == 0x09) || (ch == 0x0B) || (ch == 0x0C) || (ch == 0xA0);//||
             //      (ch >= 0x1680 && [0x1680, 0x180E, 0x2000, 0x2001, 0x2002, 0x2003, 0x2004, 0x2005, 0x2006, 0x2007, 0x2008, 0x2009, 0x200A, 0x202F, 0x205F, 0x3000, 0xFEFF].indexOf(ch) >= 0);
         }
 
@@ -295,7 +297,6 @@ namespace Esprima.NET
         }
 
         // ECMA-262 11.6.2.1 Keywords
-
         public bool isKeyword(string id)
         {
 
@@ -361,8 +362,6 @@ namespace Esprima.NET
                 extra.trailingComments.Add(comment);
             }
         }
-
-
 
 
         public void skipSingleLineComment(int offset)
@@ -506,7 +505,7 @@ namespace Esprima.NET
             start = (index == 0);
             while (index < length)
             {
-                ch = source.ToCharArray()[index];
+                ch = source[index];
 
                 if (isWhiteSpace(ch))
                 {
@@ -1301,7 +1300,7 @@ namespace Esprima.NET
                 }
             }
 
-            if (quote !='\0')
+            if (quote != '\0')
             {
                 throwUnexpectedToken();
             }
@@ -1943,7 +1942,6 @@ namespace Esprima.NET
                     return scanIdentifier();
                 }
             }
-
             return scanPunctuator();
         }
 
@@ -1972,13 +1970,19 @@ namespace Esprima.NET
 
             if (token.type != TokenType.EOF)
             {
-                value = source.Substring(token.start, token.end-token.start);
+
+                value = source.Substring(token.start, token.end - token.start);
                 entry = new Token
                 {
                     type = token.type,
                     value = value,
                     range = new Token.TokenRange() { start = token.start, end = token.end },
-                    loc = loc
+
+                    loc = loc,
+                    lineNumber = lineNumber,
+                    start = loc.start.column,
+                    end = loc.end.column,
+
                 };
                 if (token.regex != null)
                 {
@@ -2200,7 +2204,7 @@ namespace Esprima.NET
                     }
                 }
 
-                /// value = (token.type == TokenType.Template) ? token.value.raw : token.value;
+                // value = (token.type == TokenType.Template) ? token.value.raw : token.value;
                 value = token.value;
             }
             else
@@ -2453,7 +2457,7 @@ namespace Esprima.NET
                         restNode = new Node();
                         lex();
                         @params.Add(lookahead);
-                        rest = parseVariableIdentifier( kind);
+                        rest = parseVariableIdentifier(kind);
                         //rest = parseVariableIdentifier(@params, kind);
                         elements.Add(restNode.finishRestElement(rest));
                         break;
@@ -2785,7 +2789,7 @@ namespace Esprima.NET
                     return node.finishProperty("set", key, computed, value, false, false);
                 }
             }
-            else if (token.type == TokenType.Punctuator && token.value== "*" && lookaheadPropertyName())
+            else if (token.type == TokenType.Punctuator && token.value == "*" && lookaheadPropertyName())
             {
                 computed = match("[");
                 key = parseObjectPropertyKey();
@@ -2812,60 +2816,61 @@ namespace Esprima.NET
             return null;
         }
 
-        //public Node parseObjectProperty(hasProto)
-        //{
-        //    var token = lookahead;
-        //    Node node = new Node();
-        //    bool computed;
-        //    Node key = null;
-        //    Node maybeMethod;
-        //    bool proto;
-        //    Node value;
+        public Node parseObjectProperty( bool hasProto)
+        {
+            var token = lookahead;
+            Node node = new Node();
+            bool computed;
+            Node key = null;
+            Node maybeMethod;
+            bool proto;
+            Node value;
 
-        //    computed = match("[");
-        //    if (match("*")) {
-        //        lex();
-        //    } else {
-        //        key = parseObjectPropertyKey();
-        //    }
-        //    maybeMethod = tryParseMethodDefinition(token, key, computed, node);
-        //    if (maybeMethod!= null) {
-        //        return maybeMethod;
-        //    }
+            computed = match("[");
+            if (match("*")) {
+                lex();
+            } else {
+                key = parseObjectPropertyKey();
+            }
+            maybeMethod = tryParseMethodDefinition(token, key, computed, node);
+            if (maybeMethod!= null) {
+                return maybeMethod;
+            }
 
-        //    if (key== null) {
-        //        throwUnexpectedToken(lookahead);
-        //    }
+            if (key== null) {
+                throwUnexpectedToken(lookahead);
+            }
 
-        //    // Check for duplicated __proto__
-        //    if (!computed) {
-        //        proto = (key.type == Syntax.Identifier && key.name == "__proto__") ||
-        //            (key.type == Syntax.Literal && key.value == "__proto__");
-        //        if (hasProto.value && proto) {
-        //            tolerateError(Messages.DuplicateProtoProperty);
-        //        }
-        //        hasProto.value |= proto;
-        //    }
+            // Check for duplicated __proto__
+            if (!computed) {
+                proto = (key.type == Syntax.Identifier && key.name == "__proto__") ||
+                    (key.type == Syntax.Literal && key.name== "__proto__");
+                if (hasProto && proto) {
+                    tolerateError(Messages.DuplicateProtoProperty);
+                }
+                hasProto |= proto;
+            }
 
-        //    if (match(":")) {
-        //        lex();
-        //        value = inheritCoverGrammar(parseAssignmentExpression);
-        //        return node.finishProperty("init", key, computed, value, false, false);
-        //    }
+            if (match(":")) {
+                lex();
+                value = inheritCoverGrammar(parseAssignmentExpression);
+                return node.finishProperty("init", key, computed, value, false, false);
+            }
 
-        //    if (token.type == TokenType.Identifier) {
-        //        if (match("=")) {
-        //            firstCoverInitializedNameError = lookahead;
-        //            lex();
-        //            value = isolateCoverGrammar(parseAssignmentExpression);
-        //            return node.finishProperty("init", key, computed,
-        //                new Node(token).finishAssignmentPattern(key, value), false, true);
-        //        }
-        //        return node.finishProperty("init", key, computed, key, false, true);
-        //    }
+            if (token.type == TokenType.Identifier) {
+                if (match("=")) {
+                    firstCoverInitializedNameError = lookahead;
+                    lex();
+                    value = isolateCoverGrammar(parseAssignmentExpression);
+                    return node.finishProperty("init", key, computed,
+                        new Node(token).finishAssignmentPattern(key, value), false, true);
+                }
+                return node.finishProperty("init", key, computed, key, false, true);
+            }
 
-        //    throwUnexpectedToken(lookahead);
-        //}
+            throwUnexpectedToken(lookahead);
+            return null;
+        }
 
         public Node parseObjectInitializer()
         {
@@ -2877,7 +2882,7 @@ namespace Esprima.NET
 
             while (!match("}"))
             {
-                //  properties.Add(parseObjectProperty(hasProto));
+                properties.Add(parseObjectProperty(false));
 
                 if (!match("}"))
                 {
@@ -5494,7 +5499,7 @@ namespace Esprima.NET
             Node id = null;
             Node superClass = null;
             Node classNode = new Node();
-           List<Node>  classBody;
+            List<Node> classBody;
             bool previousStrict = strict;
             strict = true;
 
@@ -5510,7 +5515,7 @@ namespace Esprima.NET
                 lex();
                 superClass = isolateCoverGrammar(parseLeftHandSideExpressionAllowCall);
             }
-            classBody = new List<Node>() {parseClassBody()};
+            classBody = new List<Node>() { parseClassBody() };
             strict = previousStrict;
 
             return classNode.finishClassDeclaration(id, superClass, classBody);
@@ -5879,7 +5884,6 @@ namespace Esprima.NET
         }
 
         // ECMA-262 15.1 Scripts
-
         public List<Node> parseScriptBody()
         {
             Node statement;
@@ -6040,39 +6044,39 @@ namespace Esprima.NET
 
             //try
             //{
-                peek();
-                if (lookahead.type == TokenType.EOF)
-                {
-                    return extra.tokens;
-                }
+            peek();
+            if (lookahead.type == TokenType.EOF)
+            {
+                return extra.tokens;
+            }
 
-                lex();
-                while (lookahead.type != TokenType.EOF)
+            lex();
+            while (lookahead.type != TokenType.EOF)
+            {
+                try
                 {
-                    try
+                    lex();
+                }
+                catch (Error lexError)
+                {
+                    if (extra.errors != null)
                     {
-                        lex();
+                        recordError(lexError);
+                        // We have to break on the first error
+                        // to avoid infinite loops.
+                        break;
                     }
-                    catch (Error lexError)
+                    else
                     {
-                        if (extra.errors != null)
-                        {
-                            recordError(lexError);
-                            // We have to break on the first error
-                            // to avoid infinite loops.
-                            break;
-                        }
-                        else
-                        {
-                            throw lexError;
-                        }
+                        throw lexError;
                     }
                 }
+            }
 
-                filterTokenLocation();
-                tokens = extra.tokens;
-                //tokens.comments = extra.comments;
-                //tokens.errors = extra.errors;
+            filterTokenLocation();
+            tokens = extra.tokens;
+            //tokens.comments = extra.comments;
+            //tokens.errors = extra.errors;
 
             //}
             //catch (Exception e)
@@ -6159,17 +6163,17 @@ namespace Esprima.NET
 
             //try
             //{
-               var program = parseProgram();
-                //if (typeof extra.comments !== "undefined") {
-                //    program.comments = extra.comments;
-                //}
-                //if (typeof extra.tokens !== "undefined") {
-                //    filterTokenLocation();
-                //    program.tokens = extra.tokens;
-                //}
-                //if (typeof extra.errors !== "undefined") {
-                //    program.errors = extra.errors;
-                //}
+            var program = parseProgram();
+            //if (typeof extra.comments !== "undefined") {
+            //    program.comments = extra.comments;
+            //}
+            //if (typeof extra.tokens !== "undefined") {
+            //    filterTokenLocation();
+            //    program.tokens = extra.tokens;
+            //}
+            //if (typeof extra.errors !== "undefined") {
+            //    program.errors = extra.errors;
+            //}
             //}
             //catch (Exception e)
             //{
@@ -6211,75 +6215,6 @@ namespace Esprima.NET
         //    Object.freeze(types);
         //}
 
-    }
-
-    public class Options
-    {
-        public bool tokens;
-
-        public List<Node> defaults { get; set; }
-
-        public bool inFor { get; set; }
-        public string message { get; set; }
-        public Token stricted { get; set; }
-        public int defaultCount { get; set; }
-        public Token firstRestricted { get; set; }
-        public bool comment { get; set; }
-        public bool tolerant { get; set; }
-        public Loc loc { get; set; }
-        public string sourceType { get; set; }
-        public bool head { get; set; }
-        public List<Node> @params { get; set; }
-        public bool range { get; set; }
-        public bool attachComment { get; set; }
-    }
-
-    public class Error : Exception
-    {
-        public Error(string message)
-            : base(message)
-        {
-        }
-
-        public int index { get; set; }
-        public int lineNumber { get; set; }
-        public int column { get; set; }
-        public string description { get; set; }
-        public string message { get; set; }
-    }
-
-    public class Comment
-    {
-        public string type;
-        public string value;
-        public Range range;
-        public Loc loc { get; set; }
-    };
-
-    public class Extra : Node
-    {
-        public Extra()
-        {
-            this.tokens = new List<Token>();
-            this.errors = new List<Error>();
-            this.comments = new List<Comment>();
-            this.leadingComments = new List<Comment>();
-            this.trailingComments = new List<Comment>();
-
-        }
-
-        public List<Token> tokens { get; set; }
-        public List<Error> errors { get; set; }
-        public List<Comment> comments { get; set; }
-        public List<Comment> leadingComments { get; set; }
-        public List<Token> bottomRightStack { get; set; }
-        public List<Comment> trailingComments { get; set; }
-        public bool tokenize { get; set; }
-        public bool attachComment { get; set; }
-        public int openParenToken { get; set; }
-        public bool range { get; set; }
-        public int openCurlyToken { get; set; }
-        public Loc loc { get; set; }
     }
 
     // return types;

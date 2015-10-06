@@ -43,7 +43,7 @@ namespace Esprima.NET
 
         public override string ToString()
         {
-            return String.Format("{0}[{1}:{2};{3}] {4}", type, lineNumber, range.start, range.end, value);
+            return String.Format("{0}[{1}:{2};{3}] {4}", type, lineNumber, start, end, value);
         }
 
         public bool head { get; set; }
