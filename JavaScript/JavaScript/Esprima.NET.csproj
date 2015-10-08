@@ -44,7 +44,7 @@
     <Compile Include="Extra.cs" />
     <Compile Include="ListExtentions.cs" />
     <Compile Include="Loc.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="Nodes\Node.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="Regex.cs" />

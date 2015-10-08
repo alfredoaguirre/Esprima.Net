@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Esprima.Net;
 
-namespace Esprima.NET
+namespace Esprima.NET.Nodes
 {
     public class Node //= Node.prototype = {
     {
@@ -67,7 +67,7 @@ namespace Esprima.NET
 
         public override string ToString()
         {
-            return  base.ToString() +": "+  this.type;
+            return base.ToString() + ": " + this.type;
         }
 
         public Node()
@@ -76,7 +76,7 @@ namespace Esprima.NET
             {
                 if (Esprima.extra.range)
                 {
-                    this.range = new Range() {Start = Esprima.startIndex, End = 0};
+                    this.range = new Range() { Start = Esprima.startIndex, End = 0 };
                 }
                 if (Esprima.extra.loc != null)
                 {
@@ -91,7 +91,7 @@ namespace Esprima.NET
             {
                 //if (extra.range)
                 //{
-                    this.range = new Range() {Start = startToken.start, End = 0};
+                this.range = new Range() { Start = startToken.start, End = 0 };
                 // }
                 if (Esprima.extra.loc != null)
                 {
@@ -495,7 +495,7 @@ namespace Esprima.NET
         {
             this.type = Syntax.Literal;
             // this.value = ;
-            this.raw =token.value;// source.Substring(token.start, token.end - token.start);
+            this.raw = token.value;// source.Substring(token.start, token.end - token.start);
             if (token.regex != null)
             {
                 this.regex = token.regex;
@@ -648,7 +648,6 @@ namespace Esprima.NET
             return this;
         }
 
-
         public Node finishTaggedTemplateExpression(object tag, object quasi)
         {
             this.type = Syntax.TaggedTemplateExpression;
@@ -704,8 +703,6 @@ namespace Esprima.NET
             return this;
         }
 
-
-
         public Node finishUnaryExpression(string @operator, Node argument)
         {
             this.type = (@operator == "++" || @operator == "--") ? Syntax.UpdateExpression : Syntax.UnaryExpression;
@@ -715,8 +712,6 @@ namespace Esprima.NET
             this.finish();
             return this;
         }
-
-
 
         public Node finishVariableDeclaration(object declarations)
         {
@@ -762,8 +757,6 @@ namespace Esprima.NET
             this.finish();
             return this;
         }
-
-
 
         public Node finishExportSpecifier(Node local, Node exported)
         {
@@ -826,8 +819,6 @@ namespace Esprima.NET
             return this;
         }
 
-
-
         public Node finishImportDeclaration(List<Node> specifiers, string src)
         {
             this.type = Syntax.ImportDeclaration;
@@ -845,6 +836,5 @@ namespace Esprima.NET
             this.finish();
             return this;
         }
-
     };
 }

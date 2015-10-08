@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Esprima.Net;
+using Esprima.NET.Nodes;
 
 
 namespace Esprima.NET
@@ -1003,7 +1004,7 @@ namespace Esprima.NET
                 }
             }
 
-            return new Token
+            return new Token()
             {
                 type = TokenType.NumericLiteral,
                 value = Convert.ToInt32(number, 2).ToString(),
@@ -1190,7 +1191,6 @@ namespace Esprima.NET
         }
 
         // ECMA-262 11.8.4 String Literals
-
         public Token scanStringLiteral()
         {
             string str = "";
@@ -1318,7 +1318,6 @@ namespace Esprima.NET
         }
 
         // ECMA-262 11.8.6 Template Literal Lexical Components
-
         public Token scanTemplate()
         {
             var cooked = "";
@@ -1482,7 +1481,6 @@ namespace Esprima.NET
         }
 
         // ECMA-262 11.8.5 Regular Expression Literals
-
         public Regex testRegExp(string pattern, string flags)
         {
             // The BMP character to use as a replacement for astral symbols when
@@ -2140,7 +2138,6 @@ namespace Esprima.NET
 
         public void throwError(string messageFormat)
         {
-
             throw createError(lastLineNumber, lastIndex, messageFormat);
         }
 
@@ -5393,7 +5390,6 @@ namespace Esprima.NET
         }
 
         // ECMA-262 14.5 Class Definitions
-
         public Node parseClassBody()
         {
             Node classBody;
@@ -5562,7 +5558,6 @@ namespace Esprima.NET
         }
 
         // ECMA-262 15.2.3 Exports
-
         public Node parseExportSpecifier()
         {
             Node exported = null;

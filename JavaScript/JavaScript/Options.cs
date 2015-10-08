@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Esprima.NET.Nodes;
 
 namespace Esprima.NET
 {
