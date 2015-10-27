@@ -55,6 +55,7 @@
     <Compile Include="UnitTest1.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Content Include="Js\RequireJS.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JavaScriptToNet\JavaScriptToNet.csproj">

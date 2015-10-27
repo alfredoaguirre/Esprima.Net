@@ -8,7 +8,7 @@
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=C778C652EC20447F909089D644759DAF/@KeyIndexDefined">True</s:Boolean>
 	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=C778C652EC20447F909089D644759DAF/GroupingIndex/@EntryValue">4</s:Int64>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=C778C652EC20447F909089D644759DAF/Name/@EntryValue">TestMethod1AMD</s:String>
-	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=C778C652EC20447F909089D644759DAF/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;e Id="JavaScript.Test.UnitTest1.TestMethod1AMD" Project="E61C2572-E146-40F6-8B96-D51F3AE1E95E" Provider="MSTest" /&gt;&lt;e Id="JavaScript.Test.UnitTest1" Project="E61C2572-E146-40F6-8B96-D51F3AE1E95E" Provider="MSTest" /&gt;&lt;/Session&gt;</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=C778C652EC20447F909089D644759DAF/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;e Id="JavaScript.Test.UnitTest1.TestMethod1AMD" Project="E61C2572-E146-40F6-8B96-D51F3AE1E95E" Provider="MSTest" /&gt;&lt;e Id="JavaScript.Test.UnitTest1" Project="E61C2572-E146-40F6-8B96-D51F3AE1E95E" Provider="MSTest" /&gt;&lt;e Id="JavaScript.Test.UnitTest1.TestRequireJS" Project="E61C2572-E146-40F6-8B96-D51F3AE1E95E" Provider="MSTest" /&gt;&lt;/Session&gt;</s:String>
 	
 	
 	

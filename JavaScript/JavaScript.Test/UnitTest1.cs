@@ -40,5 +40,16 @@ namespace JavaScript.Test
 
             var node = esprima.parse(code, new Options());
         }
+        [TestMethod]
+        public void TestRequireJS()
+        {
+            StreamReader file = new StreamReader(@"js\RequireJS.js");
+            var esprima = new Esprima.NET.Esprima();
+            var code = file.ReadToEnd();
+            var tokenize = esprima.tokenize(code, new Options());
+
+
+            var node = esprima.parse(code, new Options());
+        }
     }
 }

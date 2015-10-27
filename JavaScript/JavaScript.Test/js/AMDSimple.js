@@ -1,5 +1,5 @@
 ﻿define(function () {
-    var privateValue = 0;
+    this.privateValue = 0;
     return {
         increment:function () {
             privateValue++;
