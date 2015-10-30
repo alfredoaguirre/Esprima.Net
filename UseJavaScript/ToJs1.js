@@ -5,7 +5,7 @@
 'System.Text',
 'System.Threading.Tasks',
 'UseJavaScript'
-], function (System, Generic, Linq, Text, Tasks, UseJavaScript) {
+], function (System, Generic, Linq, Text, TeskNamepace) {
     return declare(null, {
         property: "",
         property2: ""
