@@ -9,7 +9,8 @@ namespace UseJavaScript
     class ToJs1
     {
         public string property = "";
-        public string property2 = "";
-
+        public int property2;
+        public bool property3;
+        public List<string> property4 = new List<string>();
     }
 }
