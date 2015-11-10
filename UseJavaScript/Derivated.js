@@ -15,10 +15,10 @@
 
         /** 
         * @param {string} srt
-         * @return {objet}
+        * @return {objet}
         */
         fun2: function (srt) {
-            typeof srt === 'string';
+            typeof srt === 'string' || console.error("fun3 arg srt != {string}");
             return null;
         },
 
@@ -28,8 +28,8 @@
         * @return {objet}
         */
         fun3: function (srt, num) {
-            typeof srt === 'string';
-            typeof num === 'number';
+            (typeof srt === 'string') || console.error("fun3 arg srt != {string}");
+            (typeof num === 'number') || console.error("fun3 arg num != {number}");
             return null;
         }
     });
