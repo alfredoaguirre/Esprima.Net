@@ -1,23 +1,23 @@
 {
 	// core.js test
-	'jQuery': {
-		'type':	'function',
-		'args':	['selector', 'context'],
-		'properties': [
-			'length',
-			'jquery'
+	"jQuery": {
+		"type":	"function",
+		"args":	["selector", "context"],
+		"properties": [
+			"length",
+			"jquery"
 		],
-		'methods': [
-			'toArray': null,
-			'get': ['num'],
-			'pushStack': ['elems'],
-			'each':	['callback'],
-			'map':	['callback'],
-			'slice':	null,
-			'first':	null,
-			'last':	null,
-			'eq':	null,
-			'end':	null
+		"methods": [
+			"toArray": null,
+			"get": ["num"],
+			"pushStack": ["elems"],
+			"each":	["callback"],
+			"map":	["callback"],
+			"slice":	null,
+			"first":	null,
+			"last":	null,
+			"eq":	null,
+			"end":	null
 		]
 	}
 }
