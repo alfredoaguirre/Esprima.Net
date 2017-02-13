@@ -1,14 +1,13 @@
 {
 	// core.js test
-	
-	jQuery: {
-		type:	function,
-		args:	['selector', 'context'],
-		properties: [
+	'jQuery': {
+		'type':	'function',
+		'args':	['selector', 'context'],
+		'properties': [
 			'length',
 			'jquery'
 		],
-		methods: [
+		'methods': [
 			'toArray': null,
 			'get': ['num'],
 			'pushStack': ['elems'],
