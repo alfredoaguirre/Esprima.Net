@@ -3,7 +3,7 @@
 	
 	jQuery: {
 		type:	function,
-		args:	2,
+		args:	['selector', 'context'],
 		properties: [
 			'length',
 			'jquery'
