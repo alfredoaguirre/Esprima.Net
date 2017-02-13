@@ -1,9 +1,9 @@
 {
-	"apiNames": [
+    "apiNames": [
         {
             "name": "jQuery",
-            "type":	"function",
-            "args":	["selector", "context"],
+            "type": "function",
+            "args": ["selector", "context"],
             "properties": [
                 "length",
                 "jquery"
@@ -17,7 +17,7 @@
                 { "slice": null },
                 { "first": null },
                 { "last": null },
-                { "eq":	null },
+                { "eq": null },
                 { "end": null }
             ]
         }
