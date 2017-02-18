@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace parser
@@ -20,8 +21,11 @@ namespace parser
         }
         static public Lexical getFromRight(string rightTag)
         {
-            return Lexicals.FirstOrDefault(x => x.HasRight(rightTag)) ?
-                 GetAllRexEx()
+            var lexical = Lexicals.FirstOrDefault(x => x.HasRight(rightTag));
+            if (lexical != null)
+                return lexical;
+            var regExLexicals = GetAllRexEx();
+            return regExLexicals.FirstOrDefault(x => x.MatchRexEx(rightTag));
         }
         static public bool IsTermanl(string name)
         {
@@ -64,6 +68,26 @@ namespace parser
         }
         public bool HasRight(string rightTag)
         {
+            return LexsString.Any(x => x.Any(y => y == rightTag));
+        }
+        public bool MatchRexEx(string rightTag)
+        {
+            if (IsRexEx)
+            {
+                return this.Lexs.Any(x =>
+                 {
+                     var LexRegEx = x.First();
+                     var regex = LexRegEx.Name.Remove(0, 1).Remove(LexRegEx.Name.Length - 2, 1);
+                     regex = @"\p{" + regex + "}";
+                     Regex rgx = new Regex(regex, RegexOptions.IgnoreCase);
+                     MatchCollection matches = rgx.Matches(rightTag);
+                     return matches.Count >= 0;
+                 });
+            }
+            else
+            {
+                return false;
+            }
             return LexsString.Any(x => x.Any(y => y == rightTag));
         }
     }

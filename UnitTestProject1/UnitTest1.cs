@@ -76,9 +76,8 @@ namespace UnitTestProject1
                     Console.WriteLine("=> " + tokenList.Current.Name);
                     continue;
                 }
-                IEnumerator<Lex> middle;
                 IEnumerator<Token> middle2;
-                l2 = MoveToNextTerminal(l2, out middle);
+                l2 = MoveToNextTerminal(l2, out IEnumerator<Lex> middle);
                 middle.MoveNext();
                 Console.WriteLine(middle.Current.Name);
                 if (l2.Current != null)
@@ -134,6 +133,15 @@ namespace UnitTestProject1
             }
             middle = middleList.GetEnumerator() as IEnumerator<Lex>;
             return Lexs;
+        }
+        [TestMethod]
+        public void TestMethod6()
+        {
+            Class1.t1();
+          
+            var lexical = Grammar.getFromRight("K");
+          
+
         }
     }
 }
