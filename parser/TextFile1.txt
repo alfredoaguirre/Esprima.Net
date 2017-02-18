@@ -1,0 +1,525 @@
+﻿
+/// http://es5.github.io/#x7.6
+
+///  String 
+
+
+/// 7.5 Tokens
+
+Token ::= IdentifierName
+      ::= Punctuator
+      ::= NumericLiteral
+      ::= StringLiteral
+
+/// 7.6 Identifier Names and Identifiers
+
+Identifier ::= IdentifierName but not ReservedWord
+
+IdentifierName ::= IdentifierStart
+			   ::= IdentifierName IdentifierPart
+
+IdentifierStart ::= UnicodeLetter
+			    ::= $
+                ::= _
+		        ::= \ UnicodeEscapeSequence
+
+IdentifierPart ::= IdentifierStart
+               ::= UnicodeCombiningMark
+               ::= UnicodeDigit
+               ::= UnicodeConnectorPunctuation
+               ::= <ZWNJ>
+               ::= <ZWJ>
+
+UnicodeLetter ::=- (Lu) (Ll) (Lt) (Lm) (Lo) (Nl)
+
+/// any character in the Unicode categories “Uppercase letter (Lu)”, “Lowercase letter (Ll)”, “Titlecase letter (Lt)”, “Modifier letter (Lm)”, “Other letter (Lo)”, or “Letter number (Nl)”.
+
+UnicodeCombiningMark ::=- (Mn) (Mc)
+
+any character in the Unicode categories “Non-spacing mark (Mn)” or “Combining spacing mark (Mc)”
+
+UnicodeDigit ::=- (Nd)
+
+/// any character in the Unicode category “Decimal number (Nd)”
+
+UnicodeConnectorPunctuation ::=- (Pc)
+
+/// any character in the Unicode category “Connector punctuation (Pc)”
+
+
+/// 7.6.1 Reserved Words
+
+ReservedWord ::= Keyword
+             ::= FutureReservedWord
+             ::= NullLiteral
+             ::= BooleanLiteral
+
+/// 7.6.1.1 Keywords 
+
+Keyword ::=> break do instanceof typeofcase	else new var catch finally return void continue for	switch while debugger function this with default if	throw delete in try
+
+/// 7.6.1.2 Future Reserved Words
+
+FutureReservedWord  ::=> class enum extends super const export	import
+
+/// 7.7 Punctuators
+
+Punctuator  ::=> { } ( ) [ ] . ; , < > <= >= == != === !== + - * % ++ -- << >> >>> & | ^ ! ~ && || ? : = += -= *= %= <<= >>= >>>= &= |= ^=  
+
+DivPunctuator ::=> / /=
+
+///7.8 Literals/
+
+Literal ::= NullLiteral
+        ::= BooleanLiteral
+        ::= NumericLiteral
+        ::= StringLiteral
+        ::= RegularExpressionLiteral
+
+NullLiteral ::= null 
+
+BooleanLiteral ::=> true false
+
+NumericLiteral ::= DecimalLiteral
+                ::= HexIntegerLiteral
+
+DecimalLiteral ::= DecimalIntegerLiteral . DecimalDigitsopt ExponentPartopt
+			   ::= . DecimalDigits ExponentPartopt
+			   ::= DecimalIntegerLiteral ExponentPartopt
+
+DecimalIntegerLiteral ::= 0
+                      ::= NonZeroDigit DecimalDigitsopt
+
+DecimalDigits ::= DecimalDigit
+			  ::= DecimalDigits DecimalDigit
+
+DecimalDigit ::=> 0 1 2 3 4 5 6 7 8 9
+
+NonZeroDigit ::=> 1 2 3 4 5 6 7 8 9
+
+ExponentPart ::= ExponentIndicator SignedInteger
+
+ExponentIndicator ::=> e E
+
+SignedInteger ::= DecimalDigits
+              ::= + DecimalDigits
+              ::= - DecimalDigits
+
+HexIntegerLiteral ::= 0x HexDigit
+                  ::= 0X HexDigit
+				  ::= HexIntegerLiteral HexDigit
+
+HexDigit ::=> 0 1 2 3 4 5 6 7 8 9 a b c d e f A B C D E F
+
+
+/// 7.8.4 String Literals
+
+StringLiteral ::= ""
+              ::= 
+              ::= " DoubleStringCharacters "
+              ::=  SingleStringCharacters 
+DoubleStringCharacters ::= DoubleStringCharacter
+DoubleStringCharacters ::= DoubleStringCharacter DoubleStringCharacters
+
+
+StringLiteral ::= " DoubleStringCharacters <- opt "
+              ::=  SingleStringCharacters <- opt 
+
+DoubleStringCharacters ::= DoubleStringCharacter
+					   ::= DoubleStringCharactersop
+
+DoubleStringCharacter ::= SourceCharacter but not double-quote " or backslash \ or LineTerminator
+\ EscapeSequence
+LineContinuation
+
+SingleStringCharacter ::= SourceCharacter but not single-quote  orbackslash \ or LineTerminator
+\ EscapeSequence
+LineContinuation
+
+LineContinuation ::= \ LineTerminatorSequence
+
+EscapeSequence ::= CharacterEscapeSequence
+///            ::= 0 [lookahead ∉ DecimalDigit]
+               ::= HexEscapeSequence
+               ::= UnicodeEscapeSequence
+
+CharacterEscapeSequence ::= SingleEscapeCharacter
+						::= NonEscapeCharacter
+
+SingleEscapeCharacter   ::=    /// any fo this
+						::= "
+						::= \
+						::= b
+						::= f
+						::= n
+						::= r
+						::= r
+						::= v
+
+NonEscapeCharacter ::= SourceCharacter but not EscapeCharacter or LineTerminator
+
+EscapeCharacter ::= SingleEscapeCharacter
+				::=	DecimalDigit
+				::= x
+				::= u
+
+HexEscapeSequence ::= x HexDigit HexDigit
+
+UnicodeEscapeSequence ::= u HexDigit HexDigit HexDigit HexDigit
+
+
+/// 7.8.5 Regular Expression Literal
+
+ RegularExpressionLiteral ::= / RegularExpressionBody / RegularExpressionFlags
+
+RegularExpressionBody ::= RegularExpressionFirstChar RegularExpressionChars
+
+RegularExpressionChars ::= [empty]
+				       ::= RegularExpressionChars RegularExpressionChar
+
+RegularExpressionFirstChar ::= RegularExpressionNonTerminator but not * or \ or / or [
+					       ::= RegularExpressionBackslashSequence
+						   ::= RegularExpressionClass
+
+RegularExpressionChar ::= RegularExpressionNonTerminator but not \ or / or [
+					  ::= RegularExpressionBackslashSequence
+					  ::= RegularExpressionClass
+
+RegularExpressionBackslashSequence ::= \ RegularExpressionNonTerminator
+
+RegularExpressionNonTerminator ::= SourceCharacter but not LineTerminator
+
+RegularExpressionClass ::= [ RegularExpressionClassChars ]
+
+RegularExpressionClassChars ::= [empty]
+						    ::= RegularExpressionClassChars RegularExpressionClassChar
+
+RegularExpressionClassChar ::= RegularExpressionNonTerminator but not ] or \
+						   ::= RegularExpressionBackslashSequence
+
+RegularExpressionFlags ::= [empty]
+	                   ::= RegularExpressionFlags IdentifierPart
+
+/// 11 Expressions
+
+ PrimaryExpression ::= this
+                   ::= Identifier
+                   ::= Literal
+                   ::= ArrayLiteral
+                   ::= ObjectLiteral
+                   ::= ( Expression )
+
+/// 11.1.4 Array Initialiser
+
+ArrayLiteral ::= [ Elisionopt ]
+             ::= [ ElementList ]
+             ::= [ ElementList , Elisionopt ]
+
+ElementList ::= Elisionopt AssignmentExpression
+		    ::= ElementList , Elisionopt AssignmentExpression
+
+Elision ::= ,
+		::= Elision ,
+
+/// 11.1.5 Object Initialiser
+
+ ObjectLiteral ::= { }
+               ::= { PropertyNameAndValueList }
+               ::= { PropertyNameAndValueList , }
+
+PropertyNameAndValueList ::= PropertyAssignment
+						 ::= PropertyNameAndValueList , PropertyAssignment
+
+PropertyAssignment ::= PropertyName : AssignmentExpression
+                   ::= get PropertyName ( ) { FunctionBody }
+                   ::= set PropertyName ( PropertySetParameterList ) { FunctionBody }
+
+PropertyName ::= IdentifierName
+			 ::= StringLiteral
+             ::= NumericLiteral
+
+PropertySetParameterList ::= Identifier
+
+/// 11.2 Left-Hand-Side Expressions
+
+ MemberExpression ::= PrimaryExpression
+                  ::= FunctionExpression
+                  ::= MemberExpression [ Expression ]
+                  ::= MemberExpression . IdentifierName
+                  ::= new MemberExpression Arguments
+
+NewExpression ::= MemberExpression
+              ::= new NewExpression
+
+CallExpression ::= MemberExpression Arguments
+               ::= CallExpression Arguments
+               ::= CallExpression [ Expression ]
+               ::= CallExpression . IdentifierName
+
+Arguments ::= ( )
+          ::= ( ArgumentList )
+
+ArgumentList ::= AssignmentExpression
+             ::= ArgumentList , AssignmentExpression
+
+LeftHandSideExpression ::= NewExpression
+                       ::= CallExpression
+
+/// 11.3 Postfix Expressions
+
+ PostfixExpression ::= LeftHandSideExpression 
+                   ::= LeftHandSideExpression ++
+                   ::= LeftHandSideExpression --
+
+/// 11.4 Unary Operators 
+
+ UnaryExpression  ::= PostfixExpression
+                  ::= delete UnaryExpression
+                  ::= void UnaryExpression
+                  ::= typeof UnaryExpression
+                  ::= ++ UnaryExpression
+                  ::= -- UnaryExpression
+                  ::= + UnaryExpression
+                  ::= - UnaryExpression
+                  ::= ~ UnaryExpression
+                  ::= ! UnaryExpression
+
+/// 11.5 Multiplicative Operators #
+
+MultiplicativeExpression  ::= UnaryExpression
+                          ::= MultiplicativeExpression * UnaryExpression
+                          ::= MultiplicativeExpression / UnaryExpression
+                          ::= MultiplicativeExpression % UnaryExpression
+
+///11.6 Additive Operators # Ⓣ
+
+AdditiveExpression ::=MultiplicativeExpression
+                   ::=AdditiveExpression + MultiplicativeExpression
+                   ::=AdditiveExpression - MultiplicativeExpression
+
+/// 11.7 Bitwise Shift Operators # Ⓣ
+
+ShiftExpression  ::= AdditiveExpression
+                 ::= ShiftExpression << AdditiveExpression
+                 ::= ShiftExpression >> AdditiveExpression
+                 ::= ShiftExpression >>> AdditiveExpression
+
+/// 11.8 Relational Operators # Ⓣ
+
+RelationalExpression ::= ShiftExpression
+                     ::= RelationalExpression < ShiftExpression
+                     ::= RelationalExpression > ShiftExpression
+                     ::= RelationalExpression <= ShiftExpression
+                     ::= RelationalExpression >= ShiftExpression
+                     ::= RelationalExpression instanceof ShiftExpression
+                     ::= RelationalExpression in ShiftExpression
+
+
+RelationalExpressionNoIn ::= ShiftExpression
+                         ::= RelationalExpressionNoIn < ShiftExpression
+                         ::= RelationalExpressionNoIn > ShiftExpression
+                         ::= RelationalExpressionNoIn <= ShiftExpression
+                         ::= RelationalExpressionNoIn >= ShiftExpression
+                         ::= RelationalExpressionNoIn instanceof ShiftExpression
+
+/// 11.9 Equality Operators # Ⓣ
+
+EqualityExpression ::= RelationalExpression
+                   ::= EqualityExpression == RelationalExpression
+                   ::= EqualityExpression != RelationalExpression
+                   ::= EqualityExpression === RelationalExpression
+                   ::= EqualityExpression !== RelationalExpression
+
+EqualityExpressionNoIn ::= RelationalExpressionNoIn
+                       ::= EqualityExpressionNoIn == RelationalExpressionNoIn
+                       ::= EqualityExpressionNoIn != RelationalExpressionNoIn
+                       ::= EqualityExpressionNoIn === RelationalExpressionNoIn
+                       ::= EqualityExpressionNoIn !== RelationalExpressionNoIn
+
+/// 11.10 Binary Bitwise Operators # Ⓣ
+
+BitwiseANDExpression ::= EqualityExpression
+					 ::= BitwiseANDExpression & EqualityExpression
+
+BitwiseANDExpressionNoIn ::= EqualityExpressionNoIn
+                         ::= BitwiseANDExpressionNoIn & EqualityExpressionNoIn
+
+BitwiseXORExpression ::= BitwiseANDExpression
+                     ::= BitwiseXORExpression ^ BitwiseANDExpression
+
+BitwiseXORExpressionNoIn ::= BitwiseANDExpressionNoIn
+                         ::= BitwiseXORExpressionNoIn ^ BitwiseANDExpressionNoIn
+
+BitwiseORExpression ::= BitwiseXORExpression
+			        ::= BitwiseORExpression | BitwiseXORExpression
+
+BitwiseORExpressionNoIn ::= BitwiseXORExpressionNoIn
+                        ::= BitwiseORExpressionNoIn | BitwiseXORExpressionNoIn
+
+11.11 Binary Logical Operators # Ⓣ
+
+Syntax
+
+LogicalANDExpression  ::= BitwiseORExpression
+                      ::= LogicalANDExpression && BitwiseORExpression
+
+LogicalANDExpressionNoIn ::= BitwiseORExpressionNoIn
+                         ::= LogicalANDExpressionNoIn && BitwiseORExpressionNoIn
+
+LogicalORExpression ::= LogicalANDExpression
+                    ::= LogicalORExpression || LogicalANDExpression
+
+LogicalORExpressionNoIn ::=LogicalANDExpressionNoIn
+                        ::=LogicalORExpressionNoIn || LogicalANDExpressionNoIn
+
+
+///11.12 Conditional Operator ( ? : ) # Ⓣ
+
+ConditionalExpression ::= LogicalORExpression
+                      ::= LogicalORExpression ? AssignmentExpression : AssignmentExpression
+
+ConditionalExpressionNoIn ::=LogicalORExpressionNoIn
+                          ::=LogicalORExpressionNoIn ? AssignmentExpression : AssignmentExpressionNoIn
+
+///11.13 Assignment Operators # Ⓣ
+
+AssignmentExpression ::= ConditionalExpression
+                     ::= LeftHandSideExpression AssignmentOperator AssignmentExpression
+
+AssignmentExpressionNoIn ::= ConditionalExpressionNoIn
+                         ::= LeftHandSideExpression AssignmentOperator AssignmentExpressionNoIn
+
+///11.14 Comma Operator ( , ) # Ⓣ 
+
+Expression ::= AssignmentExpression
+		   ::= Expression , AssignmentExpression
+
+ExpressionNoIn ::= AssignmentExpressionNoIn
+               ::= ExpressionNoIn , AssignmentExpressionNoIn
+
+
+
+///12 Statements # Ⓣ
+
+Statement ::= Block
+          ::= VariableStatement
+          ::= EmptyStatement
+          ::= ExpressionStatement
+          ::= IfStatement
+          ::= IterationStatement
+          ::= ContinueStatement
+          ::= BreakStatement
+          ::= ReturnStatement
+          ::= WithStatement
+          ::= LabelledStatement
+          ::= SwitchStatement
+          ::= ThrowStatement
+          ::= TryStatement
+          ::= DebuggerStatement
+
+12.1 Block
+
+Block ::= { StatementListopt }
+
+StatementList ::= Statement
+              ::= StatementList Statement
+
+12.2 Variable Statement # Ⓣ
+
+VariableStatement ::= var VariableDeclarationList ;
+
+VariableDeclarationList ::= VariableDeclaration
+                        ::= VariableDeclarationList , VariableDeclaration
+
+VariableDeclarationListNoIn ::= VariableDeclarationNoIn
+                            ::= VariableDeclarationListNoIn , VariableDeclarationNoIn
+
+VariableDeclaration ::= Identifier Initialiser-opt
+
+VariableDeclarationNoIn ::= Identifier InitialiserNoIn-opt
+
+Initialiser ::= = AssignmentExpression
+
+InitialiserNoIn ::= = AssignmentExpressionNoIn
+
+/// 12.3 Empty Statement # Ⓣ
+
+EmptyStatement ::= ;
+
+/// 12.4 Expression Statement # Ⓣ
+
+
+ExpressionStatement ::= [lookahead ∉ {{, function}] Expression ;
+
+/// 12.5 The if Statement # Ⓣ
+
+IfStatement ::= if ( Expression ) Statement else Statement
+				if ( Expression ) Statement
+
+/// 12.6 Iteration Statements # Ⓣ
+
+IterationStatement ::= do Statement while ( Expression );
+                   ::= while ( Expression ) Statement
+                   ::= for ( ExpressionNoIn-opt; Expression-opt ; Expression-opt ) Statement
+                   ::= for ( var VariableDeclarationListNoIn; Expression-opt ; Expression-opt ) Statement
+                   ::= for ( LeftHandSideExpression in Expression ) Statement
+                   ::= for ( var VariableDeclarationNoIn in Expression ) Statement
+
+/// 12.7 The continue Statement # Ⓣ ①
+
+ContinueStatement ::= continue ;
+                  ::= continue [no LineTerminator here] Identifier;
+
+/// 12.8 The break Statement # Ⓣ ①
+
+BreakStatement ::= break ;
+		       ::= break [no LineTerminator here] Identifier ;
+
+///12.9 The return Statement # Ⓣ ①
+
+ReturnStatement ::= return ;
+                ::= return [no LineTerminator here] Expression ;
+
+///12.10 The with Statement # Ⓣ
+
+WithStatement ::= with ( Expression ) Statement
+
+/// 12.11 The switch Statement # Ⓣ
+
+
+SwitchStatement ::= switch ( Expression ) CaseBlock
+
+CaseBlock ::= { CaseClausesopt }
+          ::= { CaseClausesoptDefaultClause CaseClausesopt }
+
+CaseClauses ::= CaseClause
+            ::= CaseClauses CaseClause
+
+CaseClause ::= case Expression : StatementListopt
+
+DefaultClause ::= default : StatementListopt
+
+///12.12 Labelled Statements # Ⓣ
+
+LabelledStatement ::= Identifier : Statement
+
+///13 Function Definition # Ⓣ
+
+FunctionDeclaration ::= function Identifier ( FormalParameterListopt ) { FunctionBody }
+
+FunctionExpression ::= function Identifier-opt ( FormalParameterListopt ) { FunctionBody }
+
+FormalParameterList ::= Identifier
+                    ::= FormalParameterList , Identifier
+
+FunctionBody ::= SourceElements-opt
+
+///14 Program # Ⓣ
+
+Program ::= SourceElements-opt
+
+SourceElements ::= SourceElement
+               ::= SourceElements SourceElement
+
+SourceElement ::= Statement
+              ::= FunctionDeclaration
