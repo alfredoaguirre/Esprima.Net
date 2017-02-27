@@ -32,7 +32,18 @@ namespace JavaScriptToNet.Test
         [TestMethod]
         public void TestMethod2()
         {
-              Class1.emit(@"js");  
+            Class1.emit(@"js");
+        }
+
+        [TestMethod]
+        public void TestMethodJson()
+        {
+            utils.JsonHelper.LoadFile();
+        }
+        [TestMethod]
+        public void TestParser()
+        {
+            utils.EsprimaHelper.parseHelper();
         }
         //   [TestMethod]
         //public void TestMethodArgs()
