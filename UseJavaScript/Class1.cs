@@ -11,6 +11,8 @@ namespace UseJavaScript
     {
         public string testJsNEt()
         {
+            var i = new Derivated();
+                i.
             var example = new example();
             example.f12(new object(), new object());
             return null;
