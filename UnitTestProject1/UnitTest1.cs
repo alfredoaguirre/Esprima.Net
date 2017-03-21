@@ -13,7 +13,7 @@ namespace UnitTestProject1
         public void TestMethod1()
         {
             //creat grammar
-            Class1.t1();
+            LoadGrammarHelper.LoadGrammar();
             var lexical = Grammar.getFromRight("while");
             var termanal = Grammar.IsTermanl("while");
             var lexical2 = Grammar.getFromRight("Keyword");
@@ -25,28 +25,28 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMethod2()
         {
-            Class1.t1();
+            LoadGrammarHelper.LoadGrammar();
             var rokens = Tokenazer.getTokens("5 + 5").ToList();
         }
 
         [TestMethod]
         public void TestMethod3()
         {
-            Class1.t1();
+            LoadGrammarHelper.LoadGrammar();
             var rokens = Tokenazer.getTokens("if ( 5 == 3 ) ").ToList();
         }
 
         [TestMethod]
         public void TestMethod4()
         {
-            Class1.t1();
+            LoadGrammarHelper.LoadGrammar();
             var rokens = Tokenazer.getTokens("function d ( 5 == 3 ) { var t = 5 ; } ").ToList();
         }
 
         [TestMethod]
         public void TestMethod5()
         {
-            Class1.t1();
+            LoadGrammarHelper.LoadGrammar();
             var tokens = Tokenazer.getTokens("if ( 5 == 3 ) { var  5 = 5; } else { var  5 = 5; }").ToList();
             var lexical = Grammar.Get("IfStatement");
             checkLexical(lexical, tokens.GetEnumerator() as IEnumerator<Token>);
@@ -137,7 +137,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMethod6()
         {
-            Class1.t1();
+            LoadGrammarHelper.LoadGrammar();
           
             var lexical = Grammar.getFromRight("K");
           

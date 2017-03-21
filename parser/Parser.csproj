@@ -40,11 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="LoadGrammarHelper.cs" />
     <Compile Include="Grammar.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Parger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Lexical.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="Tokenazer.cs" />
   </ItemGroup>

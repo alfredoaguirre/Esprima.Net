@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace parser
 {
-    public class Class1
+    public class LoadGrammarHelper
     {
-        public static void t1()
+        public static void LoadGrammar()
         {
-            var fileStream = new FileStream(@"C:\Users\Alfredo Aguirre\documents\visual studio 2017\Projects\parser\parser\TextFile1.txt", FileMode.Open, FileAccess.Read);
+            var fileStream = new FileStream(@"C:\Users\Alfredo Aguirre\Documents\Visual Studio 2017\Projects\Esprima.Net\parser\TextFile1.txt", FileMode.Open, FileAccess.Read);
             using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
             {
                 string line;
@@ -40,14 +40,21 @@ namespace parser
                     if (split[1] == "::=>")
                     {
                         if (lex != null) Grammar.Add(lex);
-                        lex = new Lexical() { Name = split[0] };
+                        lex = new Lexical() { Name = split[0], HasTerminals = true };
                         split.Skip(2).ToList().ForEach(x => lex.AddArg(new List<string> { x }));
                         continue;
                     }
-                    if (split[1] == "::=-")
+                    if (split[1] == "::=-") //regEx  or code
                     {
                         if (lex != null) Grammar.Add(lex);
                         lex = new Lexical() { Name = split[0], IsRexEx = true };
+                        split.Skip(2).ToList().ForEach(x => lex.AddArg(new List<string> { x }));
+                        continue;
+                    }
+                    if (split[1] == "::==") //code
+                    {
+                        if (lex != null) Grammar.Add(lex);
+                        lex = new Lexical() { Name = split[0], IsCode = true };
                         split.Skip(2).ToList().ForEach(x => lex.AddArg(new List<string> { x }));
                         continue;
                     }

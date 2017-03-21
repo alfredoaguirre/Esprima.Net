@@ -1,6 +1,16 @@
 ﻿
 /// http://es5.github.io/#x7.6
 
+/// 7.2 White Space # Ⓣ 
+
+ WhiteSpace ::== <TAB> <VT> <FF> <SP> <#x0a> <BOM> <USP>
+
+///  7.3 Line Terminators # Ⓣ
+
+LineTerminator ::== <LF> <CR> <LS> <PS>
+
+LineTerminatorSequence ::== <LF> <CR> <LS> <PS> <CR> <LF>
+
 ///  String 
 
 
@@ -85,10 +95,10 @@ NumericLiteral ::= DecimalLiteral
 
 DecimalLiteral ::= DecimalIntegerLiteral . DecimalDigitsopt ExponentPartopt
 			   ::= . DecimalDigits ExponentPartopt
-			   ::= DecimalIntegerLiteral ExponentPartopt
+			   ::= DecimalIntegerLiteral ExponentPart-opt
 
 DecimalIntegerLiteral ::= 0
-                      ::= NonZeroDigit DecimalDigitsopt
+                      ::= NonZeroDigit DecimalDigits-opt
 
 DecimalDigits ::= DecimalDigit
 			  ::= DecimalDigits DecimalDigit
@@ -115,18 +125,13 @@ HexDigit ::=> 0 1 2 3 4 5 6 7 8 9 a b c d e f A B C D E F
 /// 7.8.4 String Literals
 
 StringLiteral ::= ""
-              ::= 
+              ::= ''
               ::= " DoubleStringCharacters "
-              ::=  SingleStringCharacters 
-DoubleStringCharacters ::= DoubleStringCharacter
-DoubleStringCharacters ::= DoubleStringCharacter DoubleStringCharacters
-
-
-StringLiteral ::= " DoubleStringCharacters <- opt "
-              ::=  SingleStringCharacters <- opt 
+              ::= ' SingleStringCharacters '
 
 DoubleStringCharacters ::= DoubleStringCharacter
-					   ::= DoubleStringCharactersop
+                       ::= DoubleStringCharacter DoubleStringCharacters
+
 
 DoubleStringCharacter ::= SourceCharacter but not double-quote " or backslash \ or LineTerminator
 \ EscapeSequence

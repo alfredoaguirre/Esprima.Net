@@ -9,6 +9,8 @@ namespace parser
     public class Token
     {
         public string Name { get; }
+        public int start { get; set; }
+        public int end { get; set; }
         public Token(string str)
         {
             Name = str;
