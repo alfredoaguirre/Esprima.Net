@@ -1,25 +1,23 @@
 {
-    "apiNames": [
-        {
-            "name": "jQuery",
-            "type": "function",
-            "args": ["selector", "context"],
-            "properties": [
-                "length",
-                "jquery"
-            ],
-            "methods": [
-                { "toArray": null },
-                { "get": ["num"] },
-                { "pushStack": ["elems"] },
-                { "each": ["callback"] },
-                { "map": ["callback"] },
-                { "slice": null },
-                { "first": null },
-                { "last": null },
-                { "eq": null },
-                { "end": null }
-            ]
-        }
-    ]
+	"apiNames": {
+		"name ":  "jquery",
+		"type": "function",
+		"args": [ "selector", "context" ],
+		"properties": [
+			"length",
+			"jquery"
+		],
+		"methods": [
+			{ "toArray": null },
+			{ "get": [ "num" ] },
+			{ "pushStack": [ "elems" ] },
+			{ "each": [ "callback" ] },
+			{ "map": [ "callback" ] },
+			{ "slice": null },
+			{ "first": null },
+			{ "last": null },
+			{ "eq": null },
+			{ "end": null }
+		]
+	}
 }

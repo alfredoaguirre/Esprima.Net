@@ -3,7 +3,7 @@
 
 /// 7.2 White Space # Ⓣ 
 
- WhiteSpace ::== <TAB> <VT> <FF> <SP> <#x0a> <BOM> <USP>
+ WhiteSpace ::== <TAB> <VT> <FF> <SP> <BOM>
 
 ///  7.3 Line Terminators # Ⓣ
 

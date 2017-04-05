@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -50,6 +54,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="jQuery\jQuery.cs" />
+    <Compile Include="jQuery\jsonStructure.cs" />
+    <Compile Include="utils\EsprimaHelper.cs" />
+    <Compile Include="utils\JsonHelper.cs" />
     <Content Include="Js\AMDSimple.js" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest1.cs">
@@ -62,6 +70,10 @@
       <Project>{91233400-bd1f-4ac1-90ea-d78984c79502}</Project>
       <Name>JavaScriptToNet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JavaScript\Esprima.NET.csproj">
+      <Project>{a313c235-4320-4cba-8be7-37c37f7c01b9}</Project>
+      <Name>Esprima.NET</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Js\exampleArgs.js">
@@ -70,6 +82,12 @@
     <Content Include="Js\example.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jQuery\core.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

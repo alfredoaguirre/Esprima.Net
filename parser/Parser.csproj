@@ -7,8 +7,8 @@
     <ProjectGuid>{8B7B516A-8A76-4B0F-84C7-A8457A84A292}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>parser</RootNamespace>
-    <AssemblyName>parser</AssemblyName>
+    <RootNamespace>Parser</RootNamespace>
+    <AssemblyName>Parser</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,17 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoadGrammarHelper.cs" />
-    <Compile Include="Grammar.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="Grammars\Grammar.cs" />
+    <Compile Include="Rules\Lexical.cs" />
+    <Compile Include="Nodes\Node.cs" />
     <Compile Include="Parger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Lexical.cs" />
-    <Compile Include="Token.cs" />
-    <Compile Include="Tokenazer.cs" />
+    <Compile Include="Rules\RulesParser.cs" />
+    <Compile Include="Tokens\Token.cs" />
+    <Compile Include="Tokens\Tokenazer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TextFile1.txt" />
+    <Content Include="Rules\JSRules.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

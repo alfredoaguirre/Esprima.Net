@@ -565,7 +565,7 @@ namespace Esprima.NET
                 else if (ch == 0x3C)
                 {
                     // U+003C is "<"
-                    if (source.Substring(index + 1, index + 4) == "!--")
+                    if (source.Substring(index + 1,  3) == "!--")
                     {
                         ++index; // `<`
                         ++index; // `!`
@@ -3956,7 +3956,7 @@ namespace Esprima.NET
 
             expr = parseConditionalExpression();
 
-            if (expr.type == PlaceHolders.ArrowParameterPlaceHolder || match("=>"))
+            if (expr != null && expr.type == PlaceHolders.ArrowParameterPlaceHolder || match("=>"))
             {
                 isAssignmentTarget = isBindingElement = false;
                 list = reinterpretAsCoverFormalsList(expr);
