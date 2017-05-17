@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +13,18 @@ namespace Parser.Tokens
         public long Line { get; private set; }
         public long Coll { get; set; }
         public virtual bool IsTerminal => true;
-        public Lexical lexical;
-        public virtual Lexical Lexical => lexical ?? (lexical = Grammar.FindRight(Ch));
-
+        protected Lexical lexical;
+        public virtual Lexical Lexical
+        {
+            get
+            {
+                if (lexical == null)
+                    lexical = Grammar.FindRight(Ch);
+                if (lexical!= null)
+                    return lexical;
+                return new Lexical();
+            }
+        }
         public TokenBase(char ch, long line, long coll)
         {
             Ch = ch;
@@ -37,24 +46,25 @@ namespace Parser.Tokens
         //public override Lexical Lexical =>  Grammar.FindRight(Srt);
         public Token() : base('\0', 0, 0)
         {
-            
+
         }
         public Token(string str, long line, long coll) : base(str[0], line, coll)
         {
             Srt = str;
             End = Srt.Length;
         }
-        
+
         public override bool IsTerminal => Grammar.Get(Srt) == null ? false : true;
 
-        public void UpdateLexical ()
+        public void UpdateLexical()
         {
             this.lexical = Grammar.FindRight(Srt);
         }
 
         public override string ToString()
         {
-            return Srt + " => " + Lexical;
+            UpdateLexical();
+            return "" + Line + ": " + Srt + "  => " + Lexical.Name;
         }
     }
 

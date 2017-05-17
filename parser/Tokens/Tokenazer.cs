@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,7 +30,7 @@ namespace Parser.Tokens
             long n = 0;
             while (stream.Peek() >= 0)
             {
-                yield return new TokenBase((char)stream.Read(), 0, n);
+                yield return new TokenBase((char)stream.Read(), n, 1);
                 n++;
             }
         }
@@ -39,21 +39,10 @@ namespace Parser.Tokens
             Token currenToken = new Token();
             foreach (var tokenbase in stream)
             {
-
-                if (IsBreaker(tokenbase))
+                if (IsBreaker(tokenbase, currenToken))
                 {
-                    if (currenToken != null)
-                    {
-                        currenToken.UpdateLexical();
-                        yield return currenToken;
-                    }
-                    if (tokenbase.Lexical.Name == "WhiteSpace")
-                    {
-                        currenToken = null;
-                        continue;
-                    }
-                    yield return new Token(tokenbase.Ch.ToString(), tokenbase.Line, tokenbase.Coll);
-
+                    yield return currenToken;
+                    currenToken = new Token(tokenbase.Ch.ToString(), tokenbase.Line, tokenbase.Coll); ;
                 }
                 else
                 {
@@ -68,42 +57,32 @@ namespace Parser.Tokens
                     }
                 }
             }
+            yield return currenToken;
         }
 
-        private static bool IsBreaker(TokenBase tokenbase)
+        static string lastType = null;
+        private static bool IsBreaker(TokenBase tokenbase, Token currentToken = null)
         {
-            if (tokenbase.Lexical.Name == "Punctuator")
+            if (lastType == null)
+            {
+                lastType = tokenbase.Lexical.Name;
+                return false;
+            }
+            if (tokenbase.Lexical.Name != lastType)
+            {
+                lastType = tokenbase.Lexical.Name;
                 return true;
-            if (tokenbase.Lexical.Name == "WhiteSpace")
-                return true;
-            return false;
+            }
+            else
+            {
+                var t = currentToken.Lexical;
+                if (!(currentToken.Lexical.HasTerminals))
+                    return false;
+                if (currentToken.Lexical.Right.Any(x => x.Token.Any(y => y == (currentToken.Srt + tokenbase.Ch))))
+                    return false;
+                else return true;
+            }
         }
-
-
-        //public static IEnumerable<Token> GetTokents2(IEnumerable<TokenBase> tokesns)
-        //{
-        //    tokesns()
-        //}
-        //public static IEnumerable<Token> getTokensFromFile(string[] line)
-        //{
-        //    var terminal = Grammar.Lexicals.Where(x => x.HasTerminals || x.IsCode || x.IsRexEx).ToList();
-        //    using (StreamReader sr = new StreamReader("TestFile.txt"))
-        //    {
-        //        int i = 0;
-
-        //        var c = new char[1];
-        //        // Read the stream to a string, and write the string to the console.
-        //        while (sr.EndOfStream)
-        //        {
-        //            sr.Read(c, 0, 1);
-        //            i++;
-        //            var t = new Token(new string(c)) { start = i };
-        //            //Console.WriteLine(line);
-        //            yield return t;
-        //        }
-
-        //    }
-        //}
 
         public static List<Lexical> RegExLexicals { get; } = new List<Lexical>();
         public static List<Lexical> CodeLexicals { get; } = new List<Lexical>();
@@ -119,13 +98,5 @@ namespace Parser.Tokens
                 if (t.HasTerminals) TerminalsLexicals.Add(t);
             }
         }
-        //public static Lexical GetLexical(char c)
-        //{
-        //    foreach (var tl in TerminalsLexicals)
-        //    {
-        //        tl.Lexs.Any(x => x[0].Name[0] == c);
-        //    }
-        //    return RegExLexicals.FirstOrDefault(tl => tl.MatchRexEx(c.ToString()));
-        //}
     }
 }

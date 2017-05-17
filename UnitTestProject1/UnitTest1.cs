@@ -33,6 +33,7 @@ namespace UnitTestProject1
             var lexical7 = Grammar.FindRight("Keyword");
 
             var lexical8 = Grammar.FindRight("if");
+            var lexical10 = Grammar.FindRight("else");
             var termanal2 = Grammar.IsTermanl("Keyword");
 
             var lexical = Grammar.Get("Keyword");
@@ -70,11 +71,23 @@ namespace UnitTestProject1
         }
         /// <summary>
         /// get tokens 
-        /// </summary>
+        /// </summary>       
         [TestMethod]
         public void TestMethod6()
         {
-            var tokensbase = Tokenazer.getTokensFromString("if ( test == 35 ) { var number = 5; } else {  number = 5; }").ToList();
+            var tokensbase = Tokenazer.getTokensFromString("if ( test == 35 ) { var number = 5; } else {  return true; }").ToList();
+            var tokens = Tokenazer.GetTokents(tokensbase).ToList();
+        }
+        [TestMethod]
+        public void TestMethod8()
+        {
+            var tokensbase = Tokenazer.getTokensFromString("if(test==35){var number=5;}else{return true;}").ToList();
+            var tokens = Tokenazer.GetTokents(tokensbase).ToList();
+        }
+        [TestMethod]
+        public void TestMethod7()
+        {
+            var tokensbase = Tokenazer.getTokensFromString("i==-y").ToList();
             var tokens = Tokenazer.GetTokents(tokensbase).ToList();
         }
 

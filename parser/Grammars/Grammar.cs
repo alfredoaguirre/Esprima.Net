@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +32,7 @@ namespace Parser.Grammars
 
         static public Lexical FindRight(String rightTag)
         {
-            return Lexicals.FirstOrDefault(x => x.HasRight(rightTag));
+            return Lexicals.First(x => x.HasRight(rightTag));
         }
         static public bool IsTermanl(string name)
         {

@@ -1,4 +1,4 @@
-﻿using Parser.Grammars;
+using Parser.Grammars;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -48,7 +48,7 @@ namespace Parser.Rules
                     if (split[1] == "::=-")
                     {
                         if (lex != null) Grammar.Add(lex);
-                        lex = new Lexical() { Name = split[0], IsRexEx = true, HasTerminals = true };
+                        lex = new Lexical() { Name = split[0], IsRexEx = true, HasTerminals = false };
                         split.Skip(2).ToList().ForEach(x => lex.AddRgiht(new List<string> { x }));
                         continue;
                     }

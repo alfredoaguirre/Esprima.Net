@@ -1,4 +1,4 @@
-﻿using Parser.Grammars;
+using Parser.Grammars;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,8 +86,7 @@ namespace Parser
             StringBuilder resume = new StringBuilder();
             this.Token.ForEach(x =>
             {
-                var line = string.Join(" ", x);
-                resume.AppendLine(line + " || ");
+                resume.AppendLine(string.Join(" ", x) + " || ");
             });
             resume = resume.Remove(resume.Length - 3, 2);
             return resume.ToString();
