@@ -10,8 +10,10 @@ namespace Parser.Rules
 {
     public class RulesParser
     {
+        public static bool? Isloading { get; private set; }
         public static void LoadRoules()
         {
+            Isloading = true;
             var fileStream = new FileStream(@"Rules\JSRules.txt", FileMode.Open, FileAccess.Read);
             using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
             {
@@ -28,13 +30,13 @@ namespace Parser.Rules
                     {
                         if (lex != null) Grammar.Add(lex);
                         lex = new Lexical() { Name = split[0] };
-                        lex.AddRgiht(split.Skip(2).ToList());
+                        lex.AddRight(split.Skip(2).ToList());
                         continue;
                     }
 
                     if (split[0] == "::=")
                     {
-                        lex.AddRgiht(split.Skip(1).ToList());
+                        lex.AddRight(split.Skip(1).ToList());
                         continue;
                     }
 
@@ -42,26 +44,26 @@ namespace Parser.Rules
                     {
                         if (lex != null) Grammar.Add(lex);
                         lex = new Lexical() { Name = split[0], HasTerminals = true };
-                        split.Skip(2).ToList().ForEach(x => lex.AddRgiht(new List<string> { x }));
+                        split.Skip(2).ToList().ForEach(x => lex.AddRight(new List<string> { x }));
                         continue;
                     }
                     if (split[1] == "::=-")
                     {
                         if (lex != null) Grammar.Add(lex);
                         lex = new Lexical() { Name = split[0], IsRexEx = true, HasTerminals = false };
-                        split.Skip(2).ToList().ForEach(x => lex.AddRgiht(new List<string> { x }));
+                        split.Skip(2).ToList().ForEach(x => lex.AddRight(new List<string> { x }));
                         continue;
                     }
                     if (split[1] == "::==")
                     {
                         if (lex != null) Grammar.Add(lex);
                         lex = new Lexical() { Name = split[0], IsCode = true, HasTerminals = true, };
-                        split.Skip(2).ToList().ForEach(x => lex.AddRgiht(new List<string> { x }));
+                        split.Skip(2).ToList().ForEach(x => lex.AddRight(new List<string> { x }));
                         continue;
                     }
                 }
             }
-            Grammar.Get("Token");
+            Isloading = false;
         }
     }
 }

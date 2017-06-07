@@ -32,7 +32,7 @@ namespace Parser.Grammars
 
         static public Lexical FindRight(String rightTag)
         {
-            return Lexicals.First(x => x.HasRight(rightTag));
+            return Lexicals.FirstOrDefault(x => x.HasRight(rightTag));
         }
         static public bool IsTermanl(string name)
         {
@@ -54,7 +54,7 @@ namespace Parser.Grammars
 
         public static Node GetTree(IEnumerable<Token> tokens, Lexical lexical)
         {
-            
+
             var baseNode = new Node(lexical);
             foreach (var t in lexical.Right.First().Token)
             {

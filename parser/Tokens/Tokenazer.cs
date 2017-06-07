@@ -42,7 +42,7 @@ namespace Parser.Tokens
                 if (IsBreaker(tokenbase, currenToken))
                 {
                     yield return currenToken;
-                    currenToken = new Token(tokenbase.Ch.ToString(), tokenbase.Line, tokenbase.Coll); ;
+                    currenToken = new Token(tokenbase.Ch.ToString(), tokenbase.Line, tokenbase.Coll);
                 }
                 else
                 {
@@ -75,8 +75,7 @@ namespace Parser.Tokens
             }
             else
             {
-                var t = currentToken.Lexical;
-                if (!(currentToken.Lexical.HasTerminals))
+                if (!(tokenbase.Lexical.HasTerminals))
                     return false;
                 if (currentToken.Lexical.Right.Any(x => x.Token.Any(y => y == (currentToken.Srt + tokenbase.Ch))))
                     return false;

@@ -17,9 +17,9 @@ namespace Parser
         public bool IsCode { get; set; }
         public bool HasTerminals { get; set; }
 
-        public void AddRgiht(List<String> arg)
+        public void AddRight(List<String> arg)
         {
-            this.Right.Add(new Parser.Right(arg));
+            this.Right.Add(new Right(arg));
         }
 
         public override string ToString()
@@ -80,7 +80,9 @@ namespace Parser
         {
             Token.AddRange(arg);
         }
+
         public List<String> Token { get; } = new List<string>();
+
         public override string ToString()
         {
             StringBuilder resume = new StringBuilder();
@@ -125,5 +127,4 @@ namespace Parser
             }
         }
     }
-
 }

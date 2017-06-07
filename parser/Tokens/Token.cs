@@ -19,8 +19,15 @@ namespace Parser.Tokens
             get
             {
                 if (lexical == null)
+                {
+                    while (Rules.RulesParser.Isloading == true)
+                    {
+                        System.Threading.Thread.Sleep(500);
+                    }
                     lexical = Grammar.FindRight(Ch);
-                if (lexical!= null)
+
+                }
+                if (lexical != null)
                     return lexical;
                 return new Lexical();
             }
@@ -43,7 +50,6 @@ namespace Parser.Tokens
         public string Srt { get; set; }
         public string Name => Srt;
         public long End { get; set; }
-        //public override Lexical Lexical =>  Grammar.FindRight(Srt);
         public Token() : base('\0', 0, 0)
         {
 
@@ -58,7 +64,11 @@ namespace Parser.Tokens
 
         public void UpdateLexical()
         {
-            this.lexical = Grammar.FindRight(Srt);
+            var newlexical = Grammar.FindRight(Srt);
+            if (Lexical != null)
+            {
+                lexical = newlexical;
+            }
         }
 
         public override string ToString()
@@ -78,14 +88,14 @@ namespace Parser.Tokens
                 public int Column { get; set; }
             }
 
-            public TokenPosition start { get; set; }
-            public TokenPosition end { get; set; }
+            public TokenPosition Start { get; set; }
+            public TokenPosition End { get; set; }
         }
 
         public class TokenRange
         {
-            public int start { get; set; }
-            public int end { get; set; }
+            public int Start { get; set; }
+            public int End { get; set; }
         }
 
 

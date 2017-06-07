@@ -54,7 +54,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMethod4()
         {
-            var rokens = Tokenazer.getTokensFromString("function d ( 5 == 3 ) { var t = 5 ; } ").ToList();
+            var tokensbase = Tokenazer.getTokensFromString("function d ( 5 == 3 ) { var t = 5 ; } ").ToList();
+            var tokens = Tokenazer.GetTokents(tokensbase).ToList();
         }
 
         /// <summary>
